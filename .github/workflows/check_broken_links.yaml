@@ -1,0 +1,18 @@
+name: Link checking
+
+on:
+  workflow_dispatch:
+
+jobs:
+  link-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check links
+        id: link_check
+        continue-on-error: true
+        run: |
+          docker run --rm -it -u $(id -u):$(id -g) ghcr.io/linkchecker/linkchecker:latest -r 1 -F text/result.txt https://docs.stakater.com/saap2/index.html
+      - if: ${{ steps.link_check.outcome }} == "failure"
+        name: Display broken links
+        run: |
+          cat result.txt
