@@ -11,7 +11,7 @@ jobs:
         id: link_check
         continue-on-error: true
         run: |
-          docker run --rm -it -u $(id -u):$(id -g) ghcr.io/linkchecker/linkchecker:latest -r 1 -F text/result.txt https://docs.stakater.com/saap2/index.html
+          docker run --rm -it -u $(id -u):$(id -g) -v "$PWD":/mnt ghcr.io/linkchecker/linkchecker:8ae3783 -r 1 -F text/result.txt https://docs.stakater.com/saap2/index.html
       - if: ${{ steps.link_check.outcome }} == "failure"
         name: Display broken links
         run: |
