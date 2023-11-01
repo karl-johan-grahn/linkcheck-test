@@ -5,13 +5,20 @@ on:
 
 jobs:
   link-check:
+    strategy:
+      matrix:
+        url: [
+          https://docs.stakater.com/saap2/index.html,
+          https://docs.stakater.com/saap/index.html,
+          https://docs.stakater.com/mto2/index.html
+        ]
     runs-on: ubuntu-latest
     steps:
       - name: Check links
         id: link_check
         continue-on-error: true
         run: |
-          docker run --rm -u $(id -u):$(id -g) -v "$PWD":/mnt ghcr.io/linkchecker/linkchecker:8ae3783 -r 1 -F text/result.txt https://docs.stakater.com/saap2/index.html
+          docker run --rm -u $(id -u):$(id -g) -v "$PWD":/mnt ghcr.io/linkchecker/linkchecker:8ae3783 -r 1 --check-extern -F text/result.txt ${{ matrix.url }}
       - if: ${{ steps.link_check.outcome }} == "failure"
         name: Display broken links
         run: |
