@@ -19,7 +19,7 @@ jobs:
         continue-on-error: true
         run: |
           docker run --rm -u $(id -u):$(id -g) -v "$PWD":/mnt ghcr.io/linkchecker/linkchecker:8ae3783 -r 1 --check-extern -F text/result.txt ${{ matrix.url }}
-      - if: ${{ steps.link_check.outcome }} == "failure"
+      - if: ${{ steps.link_check.outcome == 'failure' }}
         name: Display broken links
         run: |
           cat result.txt
