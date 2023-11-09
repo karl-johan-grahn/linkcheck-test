@@ -32,4 +32,4 @@ jobs:
       - if: ${{ steps.link_check.outcome == 'failure' }}
         name: Send broken link check result to chat
         run: |
-          $(cat ${{ steps.link_check.outputs.RANDOM_FILE_NAME }})
+          echo "some text and $(cat ${{ steps.link_check.outputs.RANDOM_FILE_NAME }})"
