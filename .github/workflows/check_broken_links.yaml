@@ -22,15 +22,14 @@ jobs:
           echo "RANDOM_FILE_NAME=$RANDOM_FILE_NAME" >> "$GITHUB_OUTPUT"
           docker run --rm -u $(id -u):$(id -g) -v "$PWD":/mnt ghcr.io/linkchecker/linkchecker:8ae3783 -r 1 --check-extern -F text/$RANDOM_FILE_NAME ${{ matrix.url }}
       # The results have to be output in a separate step because if the link check fails, that step will stop right after the failure
-      - name: Link check result
-        id: link_check_result
-        run: |
-          echo ${{ steps.link_check.outputs.RANDOM_FILE_NAME }}
-          echo 'link_result<<EOF' >> $GITHUB_OUTPUT
-          echo "$(cat ${{ steps.link_check.outputs.RANDOM_FILE_NAME }})" >> $GITHUB_OUTPUT
-          echo 'EOF' >> $GITHUB_OUTPUT
+      # - name: Link check result
+      #   id: link_check_result
+      #   run: |
+      #     echo 'link_result<<EOF' >> $GITHUB_OUTPUT
+      #     echo "$(cat ${{ steps.link_check.outputs.RANDOM_FILE_NAME }})" >> $GITHUB_OUTPUT
+      #     echo 'EOF' >> $GITHUB_OUTPUT
       # Only send message if there are errors
       - if: ${{ steps.link_check.outcome == 'failure' }}
         name: Send broken link check result to chat
         run: |
-          echo ${{ steps.link_check_result.outputs.link_result }}
+          $(cat ${{ steps.link_check.outputs.RANDOM_FILE_NAME }})
