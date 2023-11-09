@@ -8,9 +8,7 @@ jobs:
     strategy:
       matrix:
         url: [
-          "https://docs.stakater.com/saap2/index.html",
-          "https://docs.stakater.com/saap/index.html",
-          "https://docs.stakater.com/mto2/index.html"
+          "https://docs.stakater.com/saap2/index.html"
         ]
     runs-on: ubuntu-latest
     steps:
@@ -19,10 +17,8 @@ jobs:
       - name: Check links
         id: link_check
         continue-on-error: true
-        env:
-          RANDOM_FILE_NAME: ${RANDOM}.txt
         run: |
-          echo "RANDOM_FILE_NAME=$RANDOM_FILE_NAME" >> "$GITHUB_OUTPUT"
+          echo "RANDOM_FILE_NAME=${RANDOM}.txt" >> "$GITHUB_OUTPUT"
           docker run --rm -u $(id -u):$(id -g) -v "$PWD":/mnt ghcr.io/linkchecker/linkchecker:8ae3783 -r 1 --check-extern -F text/$RANDOM_FILE_NAME ${{ matrix.url }}
           echo $RANDOM_FILE_NAME
       # The results have to be output in a separate step because if the link check fails, that step will stop right after the failure
