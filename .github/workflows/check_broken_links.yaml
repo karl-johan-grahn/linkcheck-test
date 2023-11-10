@@ -35,4 +35,4 @@ jobs:
       - if: ${{ steps.link_check.outcome == 'failure' }}
         name: Send broken link check result to Slack
         run: |
-          echo ${{ steps.message.outputs.MESSAGE }}
+          echo "${{ steps.message.outputs.MESSAGE }}"
