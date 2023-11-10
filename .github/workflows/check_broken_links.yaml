@@ -29,7 +29,7 @@ jobs:
           MESSAGE="${MESSAGE//'%'/'%25'}"
           MESSAGE="${MESSAGE//$'\n'/'%0A'}"
           MESSAGE="${MESSAGE//$'\r'/'%0D'}"
-          MESSAGE="${MESSAGE//[\'\"]/}"
+          MESSAGE="${MESSAGE//[\'\"\`]/}"
           echo "MESSAGE<<EOF" >> "$GITHUB_OUTPUT"
           echo "$MESSAGE" >> "$GITHUB_OUTPUT"
           echo "EOF" >> "$GITHUB_OUTPUT"
