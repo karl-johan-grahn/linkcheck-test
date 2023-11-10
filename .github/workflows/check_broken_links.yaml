@@ -25,7 +25,7 @@ jobs:
         name: Create message
         id: message
         run: |
-          MESSAGE=:x: Broken links found:\n\n$(cat ${{ steps.link_check.outputs.RANDOM_FILE_NAME }})\n\nFor more details, check the <https://github.com/stakater-ab/handbook/actions/runs/${{ github.run_id }}|GitHub Actions Workflow>
+          MESSAGE=":x: Broken links found:\n\n$(cat ${{ steps.link_check.outputs.RANDOM_FILE_NAME }})\n\nFor more details, check the <https://github.com/stakater-ab/handbook/actions/runs/${{ github.run_id }}|GitHub Actions Workflow>"
           MESSAGE="${MESSAGE//'%'/'%25'}"
           MESSAGE="${MESSAGE//$'\n'/'%0A'}"
           MESSAGE="${MESSAGE//$'\r'/'%0D'}"
