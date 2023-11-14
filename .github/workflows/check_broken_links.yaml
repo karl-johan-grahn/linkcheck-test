@@ -31,6 +31,7 @@ jobs:
         run: |
           MESSAGE=":x: Broken links found:\n\n$(cat ${{ steps.link_check.outputs.RANDOM_FILE_NAME }})\n\nFor more details, check the <https://github.com/stakater-ab/handbook/actions/runs/${{ github.run_id }}|GitHub Actions Workflow>"
           MESSAGE="${MESSAGE//[\'\"\`]/}"
+          MESSAGE="${MESSAGE//$'\n'/'\n'}"
           echo "MESSAGE<<EOF" >> "$GITHUB_OUTPUT"
           echo "$MESSAGE" >> "$GITHUB_OUTPUT"
           echo "EOF" >> "$GITHUB_OUTPUT"
