@@ -25,13 +25,11 @@ jobs:
         name: Create message
         id: message
         # Should newlines really be removed?
-#        MESSAGE="${MESSAGE//'%'/'%25'}"
-#        MESSAGE="${MESSAGE//$'\n'/'%0A'}"
-#        MESSAGE="${MESSAGE//$'\r'/'%0D'}"
         run: |
           MESSAGE=":x: Broken links found:\n\n$(cat ${{ steps.link_check.outputs.RANDOM_FILE_NAME }})\n\nFor more details, check the <https://github.com/stakater-ab/handbook/actions/runs/${{ github.run_id }}|GitHub Actions Workflow>"
           MESSAGE="${MESSAGE//[\'\"\`]/}"
           MESSAGE="${MESSAGE//$'\n'/'\n'}"
+          MESSAGE="${MESSAGE//$'\r'/'\r'}"
           echo "MESSAGE<<EOF" >> "$GITHUB_OUTPUT"
           echo "$MESSAGE" >> "$GITHUB_OUTPUT"
           echo "EOF" >> "$GITHUB_OUTPUT"
